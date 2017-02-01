@@ -5,11 +5,11 @@
  */
 package com.grupoconamerica.backend.facade;
 
-import com.grupoconamerica.backend.dto.SmsDTO;
-import com.grupoconamerica.backend.entity.Sms;
-import com.grupoconamerica.backend.enums.SmsProcessedStatus;
-import com.grupoconamerica.backend.enums.SmsSendType;
-import com.grupoconamerica.backend.enums.SmsType;
+import com.grupoconamerica.backend.dto.SmsMessageDTO;
+import com.grupoconamerica.backend.entity.SmsMessage;
+import com.grupoconamerica.backend.enums.SmsMessageProcessedStatus;
+import com.grupoconamerica.backend.enums.SmsMessageSendType;
+import com.grupoconamerica.backend.enums.SmsMessageType;
 import com.grupoconamerica.backend.exception.JPAException;
 import com.grupoconamerica.backend.exception.SmsException;
 import java.io.IOException;
@@ -47,13 +47,13 @@ import org.smslib.TimeoutException;
 public class SmsAsyncFacade implements SmsAsyncFacadeLocal {
 
     @Inject
-    private com.grupoconamerica.backend.entity.facade.SmsFacadeLocal smsFacadeLocal;
+    private com.grupoconamerica.backend.entity.facade.SmsMessageFacadeLocal smsMessageFacadeLocal;
 
     @Asynchronous
     @Lock(READ)
     @AccessTimeout(-1)
     @Override
-    public Future<?> sendMessage(SmsDTO smsDTO) throws SmsException {
+    public Future<?> sendMessage(SmsMessageDTO smsDTO) throws SmsException {
         boolean success = true;
         OutboundMessage outboundMessage = null;
         String errorMessage = "";
@@ -76,17 +76,17 @@ public class SmsAsyncFacade implements SmsAsyncFacadeLocal {
             if(outboundMessage != null){
                 smsDTO.setGatewayId(outboundMessage.getGatewayId());
             }
-            smsDTO.setSmsType(SmsType.OUTBOUND);
+            smsDTO.setSmsMessageType(SmsMessageType.OUTBOUND);
             smsDTO.setProcessedAt(new Date());
-            smsDTO.setSmsSendType(SmsSendType.SYNC);
+            smsDTO.setSmsMessageSendType(SmsMessageSendType.SYNC);
             if (success) {
-                smsDTO.setSmsProcessedStatus(SmsProcessedStatus.SUCCESS);
+                smsDTO.setSmsMessageProcessedStatus(SmsMessageProcessedStatus.SUCCESS);
             } else {
-                smsDTO.setSmsProcessedStatus(SmsProcessedStatus.FAIL);
+                smsDTO.setSmsMessageProcessedStatus(SmsMessageProcessedStatus.FAIL);
                 smsDTO.setErrorMessage(errorMessage);
             }
             try {
-                this.smsFacadeLocal.create(new Sms(smsDTO));
+                this.smsMessageFacadeLocal.create(new SmsMessage(smsDTO));
             } catch (JPAException ex) {
                 Logger.getLogger(SmsAsyncFacade.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -98,7 +98,7 @@ public class SmsAsyncFacade implements SmsAsyncFacadeLocal {
     @Lock(READ)
     @AccessTimeout(-1)
     @Override
-    public Future<?> queueMessage(SmsDTO smsDTO) throws SmsException {
+    public Future<?> queueMessage(SmsMessageDTO smsDTO) throws SmsException {
         boolean success = true;
         String errorMessage = "";
         OutboundMessage outboundMessage = null;
@@ -121,17 +121,17 @@ public class SmsAsyncFacade implements SmsAsyncFacadeLocal {
             if(outboundMessage != null){
                 smsDTO.setGatewayId(outboundMessage.getGatewayId());
             }
-            smsDTO.setSmsType(SmsType.OUTBOUND);
+            smsDTO.setSmsMessageType(SmsMessageType.OUTBOUND);
             smsDTO.setProcessedAt(new Date());
-            smsDTO.setSmsSendType(SmsSendType.ASYNC);
+            smsDTO.setSmsMessageSendType(SmsMessageSendType.ASYNC);
             if (success) {
-                smsDTO.setSmsProcessedStatus(SmsProcessedStatus.SUCCESS);
+                smsDTO.setSmsMessageProcessedStatus(SmsMessageProcessedStatus.SUCCESS);
             } else {
-                smsDTO.setSmsProcessedStatus(SmsProcessedStatus.FAIL);
+                smsDTO.setSmsMessageProcessedStatus(SmsMessageProcessedStatus.FAIL);
                 smsDTO.setErrorMessage(errorMessage);
             }
             try {
-                this.smsFacadeLocal.create(new Sms(smsDTO));
+                this.smsMessageFacadeLocal.create(new SmsMessage(smsDTO));
             } catch (JPAException ex) {
                 Logger.getLogger(SmsAsyncFacade.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -143,9 +143,9 @@ public class SmsAsyncFacade implements SmsAsyncFacadeLocal {
     @Lock(READ)
     @AccessTimeout(-1)
     @Override
-    public Future<?> sendMessages(SmsDTO[] smsDTOs) throws SmsException {
+    public Future<?> sendMessages(SmsMessageDTO[] smsDTOs) throws SmsException {
         List<OutboundMessage> outboundMessages = new ArrayList<>();
-        for (SmsDTO smsDTO : smsDTOs) {
+        for (SmsMessageDTO smsDTO : smsDTOs) {
             OutboundMessage outboundMessage = new OutboundMessage(formatPhoneNumber(smsDTO.getPhoneNumber()), smsDTO.getMessage());
             outboundMessages.add(outboundMessage);
         }
@@ -161,9 +161,9 @@ public class SmsAsyncFacade implements SmsAsyncFacadeLocal {
     @Lock(READ)
     @AccessTimeout(-1)
     @Override
-    public Future<?> queueMessages(SmsDTO[] smsDTOs) throws SmsException {
+    public Future<?> queueMessages(SmsMessageDTO[] smsDTOs) throws SmsException {
         List<OutboundMessage> outboundMessages = new ArrayList<>();
-        for (SmsDTO smsDTO : smsDTOs) {
+        for (SmsMessageDTO smsDTO : smsDTOs) {
             OutboundMessage outboundMessage = new OutboundMessage(formatPhoneNumber(smsDTO.getPhoneNumber()), smsDTO.getMessage());
             outboundMessages.add(outboundMessage);
         }

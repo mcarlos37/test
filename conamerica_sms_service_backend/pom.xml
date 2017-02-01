@@ -9,6 +9,5 @@
   <modules>
     <module>conamerica_sms_service_backend-ear</module>
     <module>conamerica_sms_service_backend-web</module>
-    <module>conamerica_sms_service_backend-ejb</module>
   </modules>
 </project>

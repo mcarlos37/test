@@ -5,7 +5,7 @@
  */
 package com.grupoconamerica.backend.facade;
 
-import com.grupoconamerica.backend.dto.SmsDTO;
+import com.grupoconamerica.backend.dto.SmsMessageDTO;
 import com.grupoconamerica.backend.exception.SmsException;
 import java.util.concurrent.Future;
 import javax.ejb.Local;
@@ -17,12 +17,12 @@ import javax.ejb.Local;
 @Local
 public interface SmsAsyncFacadeLocal {
     
-    Future<?> sendMessage(SmsDTO smsDTO) throws SmsException;
+    Future<?> sendMessage(SmsMessageDTO smsMessageDTO) throws SmsException;
 
-    Future<?> queueMessage(SmsDTO smsDTO) throws SmsException;
+    Future<?> queueMessage(SmsMessageDTO smsMessageDTO) throws SmsException;
     
-    Future<?> sendMessages(SmsDTO[] smsDTOs) throws SmsException;
+    Future<?> sendMessages(SmsMessageDTO[] smsMessageDTOs) throws SmsException;
 
-    Future<?> queueMessages(SmsDTO[] smsDTOs)throws SmsException;
+    Future<?> queueMessages(SmsMessageDTO[] smsMessageDTOs)throws SmsException;
         
 }

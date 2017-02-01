@@ -11,7 +11,6 @@
     <module>conamerica_sms_backend-ejb</module>
     <module>conamerica_sms_backend_client-jar</module>
     <module>conamerica_sms_backend_sql-ejb</module>
-    <module>conamerica_sms_backend_session-ejb</module>
     <module>conamerica_sms_backend_gateway-ejb</module>
     <module>conamerica_sms_backend_async-ejb</module>
   </modules>

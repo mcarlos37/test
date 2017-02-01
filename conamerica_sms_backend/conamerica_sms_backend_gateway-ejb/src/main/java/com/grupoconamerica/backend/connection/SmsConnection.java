@@ -31,6 +31,9 @@ public class SmsConnection implements SmsConnectionLocal {
     @PostConstruct
     public void init() {
         for (String[] gatewayMode : getGatewayModems()) {
+            if(gatewayMode.length != 5){
+                continue;
+            }
             try {
                 SerialModemGateway serialModemGateway = new SerialModemGateway(gatewayMode[0], gatewayMode[1], Integer.parseInt(gatewayMode[2]), gatewayMode[3], gatewayMode[4]);
                 serialModemGateway.getATHandler().setStorageLocations("MESM");
