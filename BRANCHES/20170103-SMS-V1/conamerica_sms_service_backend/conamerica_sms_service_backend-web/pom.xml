@@ -22,7 +22,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>conamerica_sms_service_backend-ejb</artifactId>
+            <artifactId>conamerica_sms_backend_client-jar</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

@@ -5,7 +5,7 @@
  */
 package com.grupoconamerica.backend.jms;
 
-import com.grupoconamerica.backend.dto.SmsDTO;
+import com.grupoconamerica.backend.dto.SmsMessageDTO;
 import com.grupoconamerica.backend.exception.SmsException;
 import com.grupoconamerica.backend.facade.SmsAsyncFacadeLocal;
 import java.util.concurrent.ExecutionException;
@@ -40,10 +40,10 @@ public class SmsSendMessageMessageBean implements MessageListener {
         ObjectMessage objectMessage = (ObjectMessage) message;
         try {
             Object object = (Object) objectMessage.getObject();
-            if(object instanceof SmsDTO){
-                this.smsAsyncFacadeLocal.sendMessage((SmsDTO) object).get(30, TimeUnit.SECONDS);
+            if(object instanceof SmsMessageDTO){
+                this.smsAsyncFacadeLocal.sendMessage((SmsMessageDTO) object).get(30, TimeUnit.SECONDS);
             } else {
-                this.smsAsyncFacadeLocal.sendMessages((SmsDTO[]) object).get();
+                this.smsAsyncFacadeLocal.sendMessages((SmsMessageDTO[]) object).get();
             }
         } catch (JMSException | SmsException | InterruptedException | ExecutionException | TimeoutException ex) {
             Logger.getLogger(SmsSendMessageMessageBean.class.getName()).log(Level.SEVERE, null, ex);

@@ -5,10 +5,10 @@
  */
 package com.grupoconamerica.backend.connection;
 
-import com.grupoconamerica.backend.delegate.SmsDelegate;
-import com.grupoconamerica.backend.dto.SmsDTO;
-import com.grupoconamerica.backend.enums.SmsProcessedStatus;
-import com.grupoconamerica.backend.enums.SmsType;
+import com.grupoconamerica.backend.delegate.SmsMessageDelegate;
+import com.grupoconamerica.backend.dto.SmsMessageDTO;
+import com.grupoconamerica.backend.enums.SmsMessageProcessedStatus;
+import com.grupoconamerica.backend.enums.SmsMessageType;
 import com.grupoconamerica.backend.exception.SmsException;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -32,15 +32,15 @@ public class InboundNotification implements IInboundMessageNotification {
     public void process(AGateway gateway, Message.MessageTypes msgType, InboundMessage msg) {
         if (msgType == Message.MessageTypes.INBOUND) {
             System.out.println("New Inbound message detected from Gateway: " + msg.getOriginator() + " " + msg.getText());
-            SmsDTO smsDTO = new SmsDTO();
+            SmsMessageDTO smsDTO = new SmsMessageDTO();
             smsDTO.setPhoneNumber(msg.getOriginator());
             smsDTO.setMessage(msg.getText());
             smsDTO.setGatewayId(msg.getGatewayId());
             smsDTO.setProcessedAt(msg.getDate());
-            smsDTO.setSmsType(SmsType.INBOUND);
-            smsDTO.setSmsProcessedStatus(SmsProcessedStatus.SUCCESS);
+            smsDTO.setSmsMessageType(SmsMessageType.INBOUND);
+            smsDTO.setSmsMessageProcessedStatus(SmsMessageProcessedStatus.SUCCESS);
             try {
-                new SmsDelegate().create(smsDTO);
+                new SmsMessageDelegate().create(smsDTO);
             } catch (SmsException ex) {
                 Logger.getLogger(SmsConnection.class.getName()).log(Level.SEVERE, null, ex);
             }
