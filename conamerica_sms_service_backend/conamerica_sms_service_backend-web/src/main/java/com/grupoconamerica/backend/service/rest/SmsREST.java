@@ -35,7 +35,7 @@ import javax.ws.rs.core.MediaType;
  * @author CarlosDaniel
  */
 @Stateless
-@Path("/sms")
+@Path("/SmsREST")
 @TransactionManagement(TransactionManagementType.CONTAINER)
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class SmsREST {
