@@ -45,52 +45,52 @@ public class SmsREST {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public SmsSendMessageResponseDTO sendMessage(SmsSendMessageRequestDTO smsSendMessageRequestDTO) throws SmsException {
-//        if (smsSendMessageRequestDTO == null) {
-//            throw new SmsException("smsSendMessageRequestDTO is null");
-//        }
-//        if (smsSendMessageRequestDTO.getPhoneNumbers() == null) {
-//            throw new SmsException("smsSendMessageRequestDTO.getPhoneNumbers() is null");
-//        }
-//        if (smsSendMessageRequestDTO.getPhoneNumbers().length == 0) {
-//            throw new SmsException("smsSendMessageRequestDTO.getPhoneNumbers() is empty");
-//        }
-//        if (smsSendMessageRequestDTO.getMessage() == null) {
-//            throw new SmsException("smsSendMessageRequestDTO.getMessage() is null");
-//        }
-//        if (smsSendMessageRequestDTO.getMessage().equals("")) {
-//            throw new SmsException("smsSendMessageRequestDTO.getMessage() is empty");
-//        }
-//        if (smsSendMessageRequestDTO.getSmsMessageSendType() == null) {
-//            smsSendMessageRequestDTO.setSmsMessageSendType(SmsMessageSendType.SYNC);
-//        }
-//        if (smsSendMessageRequestDTO.getSecureBatch() == null){
-//            smsSendMessageRequestDTO.setSecureBatch(Boolean.TRUE);
-//        }
-//        SmsMessageSendType smsSendType = smsSendMessageRequestDTO.getSmsMessageSendType();
-//        List<SmsMessageDTO> smsDTOs = new ArrayList<>();
-//        for (String phoneNumber : smsSendMessageRequestDTO.getPhoneNumbers()) {
-//            if(phoneNumber == null){
-//                continue;
-//            }
-//            if(phoneNumber.equals("")){
-//                continue;
-//            }
-//            SmsMessageDTO smsDTO = new SmsMessageDTO();
-//            smsDTO.setCreatedAt(new Date());
-//            smsDTO.setPhoneNumber(phoneNumber);
-//            smsDTO.setMessage(smsSendMessageRequestDTO.getMessage());
-//            smsDTO.setSubject(smsSendMessageRequestDTO.getSubject());
-//            smsDTO.setSmsMessageType(SmsMessageType.OUTBOUND);
-//            smsDTO.setSmsMessageSendType(smsSendMessageRequestDTO.getSmsMessageSendType());
-//            smsDTOs.add(smsDTO);
-//        }
-//        String ticket;
-//        if (smsSendType.equals(SmsMessageSendType.SYNC)) {
-//            ticket = new SmsMessageDelegate().sendMessages(smsDTOs.toArray(new SmsMessageDTO[smsDTOs.size()]), smsSendMessageRequestDTO.getSecureBatch());
-//        } else {
-//            ticket = new SmsMessageDelegate().queueMessages(smsDTOs.toArray(new SmsMessageDTO[smsDTOs.size()]), smsSendMessageRequestDTO.getSecureBatch());
-//        }
-        return new SmsSendMessageResponseDTO("");
+        if (smsSendMessageRequestDTO == null) {
+            throw new SmsException("smsSendMessageRequestDTO is null");
+        }
+        if (smsSendMessageRequestDTO.getPhoneNumbers() == null) {
+            throw new SmsException("smsSendMessageRequestDTO.getPhoneNumbers() is null");
+        }
+        if (smsSendMessageRequestDTO.getPhoneNumbers().length == 0) {
+            throw new SmsException("smsSendMessageRequestDTO.getPhoneNumbers() is empty");
+        }
+        if (smsSendMessageRequestDTO.getMessage() == null) {
+            throw new SmsException("smsSendMessageRequestDTO.getMessage() is null");
+        }
+        if (smsSendMessageRequestDTO.getMessage().equals("")) {
+            throw new SmsException("smsSendMessageRequestDTO.getMessage() is empty");
+        }
+        if (smsSendMessageRequestDTO.getSmsMessageSendType() == null) {
+            smsSendMessageRequestDTO.setSmsMessageSendType(SmsMessageSendType.SYNC);
+        }
+        if (smsSendMessageRequestDTO.getSecureBatch() == null){
+            smsSendMessageRequestDTO.setSecureBatch(Boolean.TRUE);
+        }
+        SmsMessageSendType smsSendType = smsSendMessageRequestDTO.getSmsMessageSendType();
+        List<SmsMessageDTO> smsDTOs = new ArrayList<>();
+        for (String phoneNumber : smsSendMessageRequestDTO.getPhoneNumbers()) {
+            if(phoneNumber == null){
+                continue;
+            }
+            if(phoneNumber.equals("")){
+                continue;
+            }
+            SmsMessageDTO smsDTO = new SmsMessageDTO();
+            smsDTO.setCreatedAt(new Date());
+            smsDTO.setPhoneNumber(phoneNumber);
+            smsDTO.setMessage(smsSendMessageRequestDTO.getMessage());
+            smsDTO.setSubject(smsSendMessageRequestDTO.getSubject());
+            smsDTO.setSmsMessageType(SmsMessageType.OUTBOUND);
+            smsDTO.setSmsMessageSendType(smsSendMessageRequestDTO.getSmsMessageSendType());
+            smsDTOs.add(smsDTO);
+        }
+        String ticket;
+        if (smsSendType.equals(SmsMessageSendType.SYNC)) {
+            ticket = new SmsMessageDelegate().sendMessages(smsDTOs.toArray(new SmsMessageDTO[smsDTOs.size()]), smsSendMessageRequestDTO.getSecureBatch());
+        } else {
+            ticket = new SmsMessageDelegate().queueMessages(smsDTOs.toArray(new SmsMessageDTO[smsDTOs.size()]), smsSendMessageRequestDTO.getSecureBatch());
+        }
+        return new SmsSendMessageResponseDTO(ticket);
     }
     
     @POST
