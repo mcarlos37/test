@@ -41,8 +41,8 @@ public class SmsMessageDelegate extends AbstractDelegate<SmsMessageFacadeRemote>
     }
     
     @Override
-    public List<SmsMessageDTO> findRange(SmsMessageType smsType, Date initDate, Date endDate, int[] range) throws SmsException {
-        return this.getDelegate(JNDI_REMOTE_NAME, SystemModule.BACKEND_SMS).findRange(smsType, initDate, endDate, range);
+    public List<SmsMessageDTO> findAllBySmsMessageType(SmsMessageType smsType, Date initDate, Date endDate, int[] range) throws SmsException {
+        return this.getDelegate(JNDI_REMOTE_NAME, SystemModule.BACKEND_SMS).findAllBySmsMessageType(smsType, initDate, endDate, range);
     }
     
     @Override
