@@ -30,7 +30,7 @@ public interface SmsMessageFacadeRemote extends ServiceVerifier {
     
     public List<SmsMessageDTO> findAll(SmsMessageType smsType, Date initDate, Date endDate) throws SmsException;
     
-    public List<SmsMessageDTO> findRange(SmsMessageType smsType, Date initDate, Date endDate, int[] range) throws SmsException;
+    public List<SmsMessageDTO> findAllBySmsMessageType(SmsMessageType smsType, Date initDate, Date endDate, int[] range) throws SmsException;
         
     public Integer[] getProcessStatus(String ticket) throws SmsException;
     
