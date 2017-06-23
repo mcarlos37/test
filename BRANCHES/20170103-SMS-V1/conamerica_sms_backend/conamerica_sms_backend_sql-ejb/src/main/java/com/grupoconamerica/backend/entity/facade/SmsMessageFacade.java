@@ -60,7 +60,7 @@ public class SmsMessageFacade extends AbstractFacade<SmsMessage> implements SmsM
     }
 
     @Override
-    public List<SmsMessage> findRange(SmsMessageType smsMessageType, Date initDate, Date endDate, int[] range) throws JPAException {
+    public List<SmsMessage> findAllBySmsMessageType(SmsMessageType smsMessageType, Date initDate, Date endDate, int[] range) throws JPAException {
         EntityManager em = this.getEntityManager();
         try {
             TypedQuery<SmsMessage> query = em.createNamedQuery("SmsMessage.findAllByType", SmsMessage.class);
