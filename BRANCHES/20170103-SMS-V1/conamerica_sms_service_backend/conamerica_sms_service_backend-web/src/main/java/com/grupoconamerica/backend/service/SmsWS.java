@@ -104,7 +104,7 @@ public class SmsWS {
                 int[] range = new int[2];
                 range[0] = 0;
                 range[1] = smsFindRangeRequestDTO.getQuantity();
-                smsDTOs.addAll(new SmsMessageDelegate().findRange(smsFindRangeRequestDTO.getSmsMessageType(), smsFindRangeRequestDTO.getInitDate(), smsFindRangeRequestDTO.getEndDate(), range));
+                smsDTOs.addAll(new SmsMessageDelegate().findAllBySmsMessageType(smsFindRangeRequestDTO.getSmsMessageType(), smsFindRangeRequestDTO.getInitDate(), smsFindRangeRequestDTO.getEndDate(), range));
             }
             return new SmsFindRangeResponseDTO(smsDTOs, smsFindRangeRequestDTO.getSmsMessageType());
         } else if(smsFindRangeRequestDTO.getSmsMessageType().equals(SmsMessageType.OUTBOUND) ) {
@@ -115,7 +115,7 @@ public class SmsWS {
                 int[] range = new int[2];
                 range[0] = 0;
                 range[1] = smsFindRangeRequestDTO.getQuantity();
-                smsDTOs.addAll(new SmsMessageDelegate().findRange(smsFindRangeRequestDTO.getSmsMessageType(), smsFindRangeRequestDTO.getInitDate(), smsFindRangeRequestDTO.getEndDate(), range));
+                smsDTOs.addAll(new SmsMessageDelegate().findAllBySmsMessageType(smsFindRangeRequestDTO.getSmsMessageType(), smsFindRangeRequestDTO.getInitDate(), smsFindRangeRequestDTO.getEndDate(), range));
             }
             return new SmsFindRangeResponseDTO(smsDTOs, smsFindRangeRequestDTO.getSmsMessageType());
         }
