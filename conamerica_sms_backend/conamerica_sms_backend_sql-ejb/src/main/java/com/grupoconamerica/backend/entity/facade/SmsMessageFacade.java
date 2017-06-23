@@ -43,7 +43,7 @@ public class SmsMessageFacade extends AbstractFacade<SmsMessage> implements SmsM
     public List<SmsMessage> findAll(SmsMessageType smsMessageType, Date initDate, Date endDate) throws JPAException {
         EntityManager em = this.getEntityManager();
         try {
-            TypedQuery<SmsMessage> query = em.createNamedQuery("SmsMessage.findAllByType", SmsMessage.class);
+            TypedQuery<SmsMessage> query = em.createNamedQuery("SmsMessage.findAllBySmsMessageType", SmsMessage.class);
             query.setParameter("smsMessageType", smsMessageType);
             query.setParameter("initDate", initDate);
             query.setParameter("endDate", endDate);
@@ -63,7 +63,7 @@ public class SmsMessageFacade extends AbstractFacade<SmsMessage> implements SmsM
     public List<SmsMessage> findAllBySmsMessageType(SmsMessageType smsMessageType, Date initDate, Date endDate, int[] range) throws JPAException {
         EntityManager em = this.getEntityManager();
         try {
-            TypedQuery<SmsMessage> query = em.createNamedQuery("SmsMessage.findAllByType", SmsMessage.class);
+            TypedQuery<SmsMessage> query = em.createNamedQuery("SmsMessage.findAllBySmsMessageType", SmsMessage.class);
             query.setParameter("smsMessageType", smsMessageType);
             query.setParameter("initDate", initDate);
             query.setParameter("endDate", endDate);
