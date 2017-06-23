@@ -32,7 +32,7 @@ public interface SmsMessageFacadeLocal {
     
     List<SmsMessage> findAll(SmsMessageType smsMessageType, Date initDate, Date endDate) throws JPAException;
     
-    List<SmsMessage> findRange(SmsMessageType smsType, Date initDate, Date endDate, int[] range) throws JPAException;
+    List<SmsMessage> findAllBySmsMessageType(SmsMessageType smsType, Date initDate, Date endDate, int[] range) throws JPAException;
 
     List<SmsMessage> findRange(int[] range) throws JPAException;
 
