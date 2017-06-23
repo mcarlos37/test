@@ -113,9 +113,9 @@ public class SmsMessageFacade implements SmsMessageFacadeRemote, SmsMessageFacad
     }
     
     @Override
-    public List<SmsMessageDTO> findRange(SmsMessageType smsType, Date initDate, Date endDate, int[] range) throws SmsException {
+    public List<SmsMessageDTO> findAllBySmsMessageType(SmsMessageType smsType, Date initDate, Date endDate, int[] range) throws SmsException {
         try {
-            return SmsMessageConverter.smsMessagesToSmsMessageDTOs(this.smsFacadeLocal.findRange(smsType, initDate, endDate, range));
+            return SmsMessageConverter.smsMessagesToSmsMessageDTOs(this.smsFacadeLocal.findAllBySmsMessageType(smsType, initDate, endDate, range));
         } catch (JPAException ex) {
             Logger.getLogger(SmsMessageFacade.class.getName()).log(Level.SEVERE, null, ex);
             throw new SmsException(ex.getMessage(), ex);
