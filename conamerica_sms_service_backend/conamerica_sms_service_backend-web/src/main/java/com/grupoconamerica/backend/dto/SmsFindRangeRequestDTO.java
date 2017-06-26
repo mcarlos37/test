@@ -5,13 +5,11 @@
  */
 package com.grupoconamerica.backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.grupoconamerica.backend.enums.SmsMessageType;
 import com.grupoconamerica.backend.util.DateAdapter;
 import java.io.Serializable;
 import java.util.Date;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -20,19 +18,18 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * @author CarlosDaniel
  */
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 public class SmsFindRangeRequestDTO implements Serializable {
-        
+
     private SmsMessageType smsMessageType;
-    
-    @XmlElement(name = "initDate", required = true) 
+
+    @JsonProperty("initDate")
     @XmlJavaTypeAdapter(DateAdapter.class)
     private Date initDate;
-    
-    @XmlElement(name = "endDate", required = true) 
+
+    @JsonProperty("endDate")
     @XmlJavaTypeAdapter(DateAdapter.class)
     private Date endDate;
-    
+
     private Integer quantity;
 
     public SmsMessageType getSmsMessageType() {
@@ -66,7 +63,7 @@ public class SmsFindRangeRequestDTO implements Serializable {
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
-    
+
     public SmsFindRangeRequestDTO() {
     }
 
@@ -76,5 +73,5 @@ public class SmsFindRangeRequestDTO implements Serializable {
         this.endDate = endDate;
         this.quantity = quantity;
     }
-    
+
 }
