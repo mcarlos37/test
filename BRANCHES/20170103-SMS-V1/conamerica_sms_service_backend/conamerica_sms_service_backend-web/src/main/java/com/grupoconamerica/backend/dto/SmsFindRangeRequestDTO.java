@@ -22,12 +22,8 @@ public class SmsFindRangeRequestDTO implements Serializable {
 
     private SmsMessageType smsMessageType;
 
-    @JsonProperty("initDate")
-    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date initDate;
 
-    @JsonProperty("endDate")
-    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date endDate;
 
     private Integer quantity;
@@ -40,6 +36,8 @@ public class SmsFindRangeRequestDTO implements Serializable {
         this.smsMessageType = smsMessageType;
     }
 
+    @JsonProperty("initDate")
+    @XmlJavaTypeAdapter(DateAdapter.class)
     public Date getInitDate() {
         return initDate;
     }
@@ -48,6 +46,8 @@ public class SmsFindRangeRequestDTO implements Serializable {
         this.initDate = initDate;
     }
 
+    @JsonProperty("endDate")
+    @XmlJavaTypeAdapter(DateAdapter.class)
     public Date getEndDate() {
         return endDate;
     }
