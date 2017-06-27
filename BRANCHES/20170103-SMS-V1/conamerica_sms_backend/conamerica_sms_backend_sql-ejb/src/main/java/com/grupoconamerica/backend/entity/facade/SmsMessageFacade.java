@@ -65,7 +65,7 @@ public class SmsMessageFacade extends AbstractFacade<SmsMessage> implements SmsM
              EntityManager em = this.getEntityManager();
         List<SmsMessage> smsMessages = new ArrayList<>();
         try {
-            TypedQuery<SmsMessage> query = em.createNamedQuery("SmsMessage.findAllByType", SmsMessage.class);
+            TypedQuery<SmsMessage> query = em.createNamedQuery("SmsMessage.findAllBySmsMessageType", SmsMessage.class);
             query.setParameter("smsMessageProcessedStatus", SmsMessageProcessedStatus.PROCESSING);
             query.setParameter("smsMessageType", smsMessageType);
             query.setParameter("initDate", initDate);
