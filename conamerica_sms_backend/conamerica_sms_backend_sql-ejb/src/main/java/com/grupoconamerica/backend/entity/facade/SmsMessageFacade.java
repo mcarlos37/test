@@ -27,7 +27,7 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class SmsMessageFacade extends AbstractFacade<SmsMessage> implements SmsMessageFacadeLocal {
-    
+
     @PersistenceUnit(unitName = "conamerica_sms_PU")
     private EntityManagerFactory emf;
 
@@ -50,11 +50,11 @@ public class SmsMessageFacade extends AbstractFacade<SmsMessage> implements SmsM
             query.setParameter("endDate", endDate);
             Logger.getLogger(this.getClass().getName()).log(Level.INFO, "RESULT LIST SIZE: " + query.getResultList().size());
             return query.getResultList();
-        } catch(PersistenceException ex) {
+        } catch (PersistenceException ex) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             throw new JPAException(ex.getMessage(), ex);
         } finally {
-            if(em != null){
+            if (em != null) {
                 em.close();
             }
         }
@@ -62,7 +62,7 @@ public class SmsMessageFacade extends AbstractFacade<SmsMessage> implements SmsM
 
     @Override
     public List<SmsMessage> findAllBySmsMessageType(SmsMessageType smsMessageType, Date initDate, Date endDate, int[] range) throws JPAException {
-             EntityManager em = this.getEntityManager();
+        EntityManager em = this.getEntityManager();
         List<SmsMessage> smsMessages = new ArrayList<>();
         try {
             TypedQuery<SmsMessage> query = em.createNamedQuery("SmsMessage.findAllBySmsMessageType", SmsMessage.class);
@@ -73,18 +73,18 @@ public class SmsMessageFacade extends AbstractFacade<SmsMessage> implements SmsM
             query.setMaxResults(range[1] - range[0] + 1);
             query.setFirstResult(range[0]);
             smsMessages.addAll(query.getResultList());
+            if (!smsMessages.isEmpty()) {
+                for (SmsMessage smsMessage : smsMessages) {
+                    smsMessage.setSmsMessageProcessedStatus(SmsMessageProcessedStatus.SUCCESS);
+                    em.merge(smsMessage);
+                }
+            }
             return smsMessages;
         } catch (PersistenceException ex) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             throw new JPAException(ex.getMessage(), ex);
         } finally {
             if (em != null) {
-                if (!smsMessages.isEmpty()) {
-                    for (SmsMessage smsMessage : smsMessages) {
-                        smsMessage.setSmsMessageProcessedStatus(SmsMessageProcessedStatus.SUCCESS);
-                        em.merge(smsMessage);
-                    }
-                }
                 em.close();
             }
         }
@@ -97,15 +97,15 @@ public class SmsMessageFacade extends AbstractFacade<SmsMessage> implements SmsM
             TypedQuery<Long> query = em.createNamedQuery("SmsMessage.countByTicketAndSmsMessageProcessedStatus", Long.class);
             query.setParameter("ticket", ticket);
             query.setParameter("smsMessageProcessedStatus", smsMessageProcessedStatus);
-            return (int) (long)query.getSingleResult();
-        } catch(PersistenceException ex) {
+            return (int) (long) query.getSingleResult();
+        } catch (PersistenceException ex) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             throw new JPAException(ex.getMessage(), ex);
         } finally {
-            if(em != null){
+            if (em != null) {
                 em.close();
             }
         }
     }
-    
+
 }
