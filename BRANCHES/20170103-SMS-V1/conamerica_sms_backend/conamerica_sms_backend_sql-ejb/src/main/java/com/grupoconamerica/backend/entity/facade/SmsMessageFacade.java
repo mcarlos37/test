@@ -9,6 +9,7 @@ import com.grupoconamerica.backend.entity.SmsMessage;
 import com.grupoconamerica.backend.enums.SmsMessageProcessedStatus;
 import com.grupoconamerica.backend.enums.SmsMessageType;
 import com.grupoconamerica.backend.exception.JPAException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -61,20 +62,29 @@ public class SmsMessageFacade extends AbstractFacade<SmsMessage> implements SmsM
 
     @Override
     public List<SmsMessage> findAllBySmsMessageType(SmsMessageType smsMessageType, Date initDate, Date endDate, int[] range) throws JPAException {
-        EntityManager em = this.getEntityManager();
+             EntityManager em = this.getEntityManager();
+        List<SmsMessage> smsMessages = new ArrayList<>();
         try {
-            TypedQuery<SmsMessage> query = em.createNamedQuery("SmsMessage.findAllBySmsMessageType", SmsMessage.class);
+            TypedQuery<SmsMessage> query = em.createNamedQuery("SmsMessage.findAllByType", SmsMessage.class);
+            query.setParameter("smsMessageProcessedStatus", SmsMessageProcessedStatus.PROCESSING);
             query.setParameter("smsMessageType", smsMessageType);
             query.setParameter("initDate", initDate);
             query.setParameter("endDate", endDate);
             query.setMaxResults(range[1] - range[0] + 1);
             query.setFirstResult(range[0]);
-            return query.getResultList();
-        } catch(PersistenceException ex) {
+            smsMessages.addAll(query.getResultList());
+            return smsMessages;
+        } catch (PersistenceException ex) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             throw new JPAException(ex.getMessage(), ex);
         } finally {
-            if(em != null){
+            if (em != null) {
+                if (!smsMessages.isEmpty()) {
+                    for (SmsMessage smsMessage : smsMessages) {
+                        smsMessage.setSmsMessageProcessedStatus(SmsMessageProcessedStatus.SUCCESS);
+                        em.merge(smsMessage);
+                    }
+                }
                 em.close();
             }
         }
