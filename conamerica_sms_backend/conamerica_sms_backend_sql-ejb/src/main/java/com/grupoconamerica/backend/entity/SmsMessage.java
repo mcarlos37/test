@@ -28,7 +28,7 @@ import javax.persistence.Temporal;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Sms.findAllBySmsMessageType", query = "SELECT s FROM SmsMessage s WHERE s.smsMessageProcessedStatus = :smsMessageProcessedStatus AND s.smsMessageType = :smsMessageType AND s.processedAt BETWEEN :initDate AND :endDate"),
+    @NamedQuery(name = "SmsMessage.findAllBySmsMessageType", query = "SELECT s FROM SmsMessage s WHERE s.smsMessageProcessedStatus = :smsMessageProcessedStatus AND s.smsMessageType = :smsMessageType AND s.processedAt BETWEEN :initDate AND :endDate"),
     @NamedQuery(name = "SmsMessage.countByTicketAndSmsMessageProcessedStatus", query = "SELECT count(s.id) FROM SmsMessage s WHERE s.smsMessageProcessedStatus = :smsMessageProcessedStatus AND s.ticket = :ticket")
 })
 public class SmsMessage extends SmsMessageDTO {
