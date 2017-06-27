@@ -28,7 +28,7 @@ import javax.persistence.Temporal;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "SmsMessage.findAllBySmsMessageType", query = "SELECT s FROM SmsMessage s WHERE s.smsMessageType = :smsMessageType AND s.processedAt BETWEEN :initDate AND :endDate"),
+    @NamedQuery(name = "Sms.findAllBySmsMessageType", query = "SELECT s FROM SmsMessage s WHERE s.smsMessageProcessedStatus = :smsMessageProcessedStatus AND s.smsMessageType = :smsMessageType AND s.processedAt BETWEEN :initDate AND :endDate"),
     @NamedQuery(name = "SmsMessage.countByTicketAndSmsMessageProcessedStatus", query = "SELECT count(s.id) FROM SmsMessage s WHERE s.smsMessageProcessedStatus = :smsMessageProcessedStatus AND s.ticket = :ticket")
 })
 public class SmsMessage extends SmsMessageDTO {
@@ -64,7 +64,7 @@ public class SmsMessage extends SmsMessageDTO {
     public SmsMessageProcessedStatus getSmsMessageProcessedStatus() {
         return super.getSmsMessageProcessedStatus(); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     @Override
     public void setProcessedAt(Date processedAt) {
         super.setProcessedAt(processedAt); //To change body of generated methods, choose Tools | Templates.
@@ -161,16 +161,16 @@ public class SmsMessage extends SmsMessageDTO {
     public String getTicket() {
         return super.getTicket(); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     public SmsMessage() {
     }
-    
+
     public SmsMessage(SmsMessageDTO smsMessageDTO) throws SmsException {
         if (smsMessageDTO == null) {
             throw new SmsException("smsMessageDTO is null");
         }
         this.id = smsMessageDTO.getId();
-        if(this.id == null){
+        if (this.id == null) {
             this.createdAt = new Date();
         } else {
             this.createdAt = smsMessageDTO.getCreatedAt();
@@ -186,5 +186,5 @@ public class SmsMessage extends SmsMessageDTO {
         this.smsMessageSendType = smsMessageDTO.getSmsMessageSendType();
         this.ticket = smsMessageDTO.getTicket();
     }
-    
+
 }
