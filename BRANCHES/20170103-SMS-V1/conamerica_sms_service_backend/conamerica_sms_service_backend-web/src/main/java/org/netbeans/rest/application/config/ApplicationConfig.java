@@ -25,7 +25,7 @@ import javax.ws.rs.core.Application;
 public class ApplicationConfig extends Application {
 
     
-      private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+      private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override
     public Set<Object> getSingletons() {
