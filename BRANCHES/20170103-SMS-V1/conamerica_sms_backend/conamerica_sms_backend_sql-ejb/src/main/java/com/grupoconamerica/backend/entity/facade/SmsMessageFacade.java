@@ -72,13 +72,12 @@ public class SmsMessageFacade extends AbstractFacade<SmsMessage> implements SmsM
             query.setParameter("endDate", endDate);
             query.setMaxResults(range[1] - range[0] + 1);
             query.setFirstResult(range[0]);
-            if (!smsMessages.isEmpty()) {
-                for (SmsMessage smsMessage : query.getResultList()) {
-                    smsMessage.setSmsMessageProcessedStatus(SmsMessageProcessedStatus.SUCCESS);                  
-                    em.merge(smsMessage);
-                    smsMessages.add(smsMessage);
-                }
+            for (SmsMessage smsMessage : query.getResultList()) {
+                smsMessage.setSmsMessageProcessedStatus(SmsMessageProcessedStatus.SUCCESS);
+                em.merge(smsMessage);
+                smsMessages.add(smsMessage);
             }
+
             return smsMessages;
         } catch (PersistenceException ex) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
