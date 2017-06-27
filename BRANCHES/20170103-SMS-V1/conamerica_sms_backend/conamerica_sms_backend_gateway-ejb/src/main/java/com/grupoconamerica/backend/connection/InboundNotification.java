@@ -38,7 +38,7 @@ public class InboundNotification implements IInboundMessageNotification {
             smsDTO.setGatewayId(msg.getGatewayId());
             smsDTO.setProcessedAt(msg.getDate());
             smsDTO.setSmsMessageType(SmsMessageType.INBOUND);
-            smsDTO.setSmsMessageProcessedStatus(SmsMessageProcessedStatus.SUCCESS);
+            smsDTO.setSmsMessageProcessedStatus(SmsMessageProcessedStatus.PROCESSING);
             try {
                 new SmsMessageDelegate().create(smsDTO);
             } catch (SmsException ex) {
