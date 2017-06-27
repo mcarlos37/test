@@ -74,6 +74,9 @@ public class SmsMessageFacade extends AbstractFacade<SmsMessage> implements SmsM
             query.setFirstResult(range[0]);
             for (SmsMessage smsMessage : query.getResultList()) {
                 smsMessage.setSmsMessageProcessedStatus(SmsMessageProcessedStatus.SUCCESS);
+                if (!em.contains(smsMessage)) {
+                    em.find(SmsMessage.class, smsMessage.getId());
+                }
                 em.merge(smsMessage);
                 smsMessages.add(smsMessage);
             }
