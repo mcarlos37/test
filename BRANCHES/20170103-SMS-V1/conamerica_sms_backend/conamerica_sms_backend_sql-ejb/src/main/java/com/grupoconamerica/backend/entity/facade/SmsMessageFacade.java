@@ -78,6 +78,7 @@ public class SmsMessageFacade extends AbstractFacade<SmsMessage> implements SmsM
                 }
                 smsMessage.setSmsMessageProcessedStatus(SmsMessageProcessedStatus.SUCCESS);
                 em.merge(smsMessage);
+                em.persist(smsMessage);
                 smsMessages.add(smsMessage);
             }
 
