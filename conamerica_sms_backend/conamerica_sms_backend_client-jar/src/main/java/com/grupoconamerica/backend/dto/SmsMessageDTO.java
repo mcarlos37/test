@@ -54,8 +54,6 @@ public class SmsMessageDTO implements Serializable {
 
     protected SmsMessageSendType smsMessageSendType;
 
-    protected Integer version;
-
     @XmlTransient
     protected String ticket;
 
@@ -153,14 +151,6 @@ public class SmsMessageDTO implements Serializable {
 
     public void setTicket(String ticket) {
         this.ticket = ticket;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
     }
 
     @Override
