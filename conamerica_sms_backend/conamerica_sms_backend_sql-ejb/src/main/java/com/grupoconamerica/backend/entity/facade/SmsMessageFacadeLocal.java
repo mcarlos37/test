@@ -35,6 +35,8 @@ public interface SmsMessageFacadeLocal {
     List<SmsMessage> findAllBySmsMessageType(SmsMessageType smsType, Date initDate, Date endDate, int[] range) throws JPAException;
 
     List<SmsMessage> findRange(int[] range) throws JPAException;
+    
+    void updateProcessStatus(List<SmsMessage> smsMessages) throws JPAException;
 
     int count() throws JPAException;
     
