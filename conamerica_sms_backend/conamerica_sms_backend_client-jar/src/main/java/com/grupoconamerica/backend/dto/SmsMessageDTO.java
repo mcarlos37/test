@@ -38,11 +38,11 @@ public class SmsMessageDTO implements Serializable {
     @XmlTransient
     protected String gatewayId;
 
-    @XmlElement(name = "createdAt", required = true) 
+    @XmlElement(name = "createdAt", required = true)
     @XmlJavaTypeAdapter(DateAdapter.class)
     protected Date createdAt;
 
-    @XmlElement(name = "processedAt", required = true) 
+    @XmlElement(name = "processedAt", required = true)
     @XmlJavaTypeAdapter(DateAdapter.class)
     protected Date processedAt;
 
@@ -53,6 +53,8 @@ public class SmsMessageDTO implements Serializable {
     protected String errorMessage;
 
     protected SmsMessageSendType smsMessageSendType;
+
+    protected Integer version;
 
     @XmlTransient
     protected String ticket;
@@ -151,6 +153,14 @@ public class SmsMessageDTO implements Serializable {
 
     public void setTicket(String ticket) {
         this.ticket = ticket;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     @Override
