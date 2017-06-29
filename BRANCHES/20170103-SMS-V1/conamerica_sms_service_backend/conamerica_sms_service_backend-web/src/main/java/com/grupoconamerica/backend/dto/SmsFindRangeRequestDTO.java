@@ -8,6 +8,7 @@ package com.grupoconamerica.backend.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.grupoconamerica.backend.enums.SmsMessageType;
 import com.grupoconamerica.backend.util.DateAdapter;
+import com.grupoconamerica.backend.util.DateAdapterWithMilliseconds;
 import java.io.Serializable;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -37,7 +38,7 @@ public class SmsFindRangeRequestDTO implements Serializable {
     }
 
     @JsonProperty("initDate")
-    @XmlJavaTypeAdapter(DateAdapter.class)
+    @XmlJavaTypeAdapter(DateAdapterWithMilliseconds.class)
     public Date getInitDate() {
         return initDate;
     }
@@ -47,7 +48,7 @@ public class SmsFindRangeRequestDTO implements Serializable {
     }
 
     @JsonProperty("endDate")
-    @XmlJavaTypeAdapter(DateAdapter.class)
+    @XmlJavaTypeAdapter(DateAdapterWithMilliseconds.class)
     public Date getEndDate() {
         return endDate;
     }
