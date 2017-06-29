@@ -14,7 +14,6 @@ import com.grupoconamerica.backend.exception.SmsException;
 import com.grupoconamerica.backend.exception.facade.SmsMessageFacadeRemote;
 import com.grupoconamerica.backend.jms.JMSSmsClientSessionBeanLocal;
 import com.grupoconamerica.backend.util.SmsMessageConverter;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -116,10 +115,7 @@ public class SmsMessageFacade implements SmsMessageFacadeRemote, SmsMessageFacad
     @Override
     public List<SmsMessageDTO> findAllBySmsMessageType(SmsMessageType smsType, Date initDate, Date endDate, int[] range) throws SmsException {
         try {
-            List<SmsMessage> smsMessage = new ArrayList();
-            smsMessage = this.smsFacadeLocal.findAllBySmsMessageType(smsType, initDate, endDate, range);
-            this.smsFacadeLocal.updateProcessStatus(smsMessage);
-            return SmsMessageConverter.smsMessagesToSmsMessageDTOs(smsMessage);
+            return SmsMessageConverter.smsMessagesToSmsMessageDTOs(this.smsFacadeLocal.findAllBySmsMessageType(smsType, initDate, endDate, range));
         } catch (JPAException ex) {
             Logger.getLogger(SmsMessageFacade.class.getName()).log(Level.SEVERE, null, ex);
             throw new SmsException(ex.getMessage(), ex);
