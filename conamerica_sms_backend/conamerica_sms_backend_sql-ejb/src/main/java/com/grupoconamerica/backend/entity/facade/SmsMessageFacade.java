@@ -63,25 +63,14 @@ public class SmsMessageFacade extends AbstractFacade<SmsMessage> implements SmsM
     @Override
     public List<SmsMessage> findAllBySmsMessageType(SmsMessageType smsMessageType, Date initDate, Date endDate, int[] range) throws JPAException {
         EntityManager em = this.getEntityManager();
-        List<SmsMessage> smsMessages = new ArrayList<>();
         try {
             TypedQuery<SmsMessage> query = em.createNamedQuery("SmsMessage.findAllBySmsMessageType", SmsMessage.class);
-            query.setParameter("smsMessageProcessedStatus", SmsMessageProcessedStatus.PROCESSING);
             query.setParameter("smsMessageType", smsMessageType);
             query.setParameter("initDate", initDate);
             query.setParameter("endDate", endDate);
             query.setMaxResults(range[1] - range[0] + 1);
             query.setFirstResult(range[0]);
-            for (SmsMessage smsMessage : query.getResultList()) {
-                if (!em.contains(smsMessage)) {
-                    em.find(SmsMessage.class, smsMessage.getId());
-                }
-                smsMessage.setSmsMessageProcessedStatus(SmsMessageProcessedStatus.SUCCESS);
-                em.merge(smsMessage);
-                smsMessages.add(smsMessage);
-            }
-
-            return smsMessages;
+            return query.getResultList();
         } catch (PersistenceException ex) {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
             throw new JPAException(ex.getMessage(), ex);
