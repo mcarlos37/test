@@ -73,6 +73,7 @@ public class SmsMessage extends SmsMessageDTO {
 
     @Override
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @Column(columnDefinition = "TIMESTAMP(3)")
     public Date getProcessedAt() {
         return super.getProcessedAt(); //To change body of generated methods, choose Tools | Templates.
     }
