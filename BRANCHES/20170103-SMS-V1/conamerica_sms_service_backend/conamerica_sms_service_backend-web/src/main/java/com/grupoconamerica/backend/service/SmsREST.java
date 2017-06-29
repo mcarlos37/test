@@ -16,6 +16,7 @@ import com.grupoconamerica.backend.dto.SmsSendMessageRequestDTO;
 import com.grupoconamerica.backend.enums.SmsMessageSendType;
 import com.grupoconamerica.backend.enums.SmsMessageType;
 import com.grupoconamerica.backend.exception.SmsException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -109,7 +110,9 @@ public class SmsREST {
         }
         System.out.println("*///////////////////////////////////////////////////");
         System.out.println("*///////////////////////////////////////////////////");
-        System.out.println(smsFindRangeRequestDTO.getInitDate().toString());
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        System.out.println(dt.format(smsFindRangeRequestDTO.getInitDate().toString()));
+        
         if (smsFindRangeRequestDTO.getEndDate() == null) {
             throw new SmsException("smsFindRangeRequestDTO.getFinalDate() is null");
         }
