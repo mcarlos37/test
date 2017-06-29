@@ -21,6 +21,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
+import javax.persistence.Version;
 
 /**
  *
@@ -161,6 +162,19 @@ public class SmsMessage extends SmsMessageDTO {
     public String getTicket() {
         return super.getTicket(); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void setVersion(Integer version) {
+        super.setVersion(version); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Version
+    @Override
+    public Integer getVersion() {
+        return super.getVersion(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 
     public SmsMessage() {
     }
