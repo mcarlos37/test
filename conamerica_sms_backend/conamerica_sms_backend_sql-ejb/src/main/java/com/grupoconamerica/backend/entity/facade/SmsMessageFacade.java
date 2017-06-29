@@ -66,6 +66,9 @@ public class SmsMessageFacade extends AbstractFacade<SmsMessage> implements SmsM
         try {
             TypedQuery<SmsMessage> query = em.createNamedQuery("SmsMessage.findAllBySmsMessageType", SmsMessage.class);
             query.setParameter("smsMessageType", smsMessageType);
+            System.out.println("*******************************************************************");
+            System.out.println("*******************************************************************");
+            System.out.println(initDate.toString());
             query.setParameter("initDate", initDate);
             query.setParameter("endDate", endDate);
             query.setMaxResults(range[1] - range[0] + 1);
