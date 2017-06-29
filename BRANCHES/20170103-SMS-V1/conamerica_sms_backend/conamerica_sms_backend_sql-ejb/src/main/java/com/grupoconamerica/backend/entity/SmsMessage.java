@@ -163,19 +163,6 @@ public class SmsMessage extends SmsMessageDTO {
         return super.getTicket(); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void setVersion(Integer version) {
-        super.setVersion(version); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Version
-    @Override
-    public Integer getVersion() {
-        return super.getVersion(); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
-
     public SmsMessage() {
     }
 
