@@ -110,4 +110,24 @@ public class SmsMessageFacade extends AbstractFacade<SmsMessage> implements SmsM
         }
     }
 
+    @Override
+    public void updateProcessStatus(List<SmsMessage> smsMessages) throws JPAException {
+        EntityManager em = this.getEntityManager();
+        try {
+            for (SmsMessage smsMessage : smsMessages) {
+                if (!em.contains(smsMessage)) {
+                    em.find(SmsMessage.class, smsMessage.getId());
+                }
+                smsMessage.setSmsMessageProcessedStatus(SmsMessageProcessedStatus.SUCCESS);
+                em.merge(smsMessage);
+            }
+        } catch (PersistenceException ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            throw new JPAException(ex.getMessage(), ex);
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
 }
