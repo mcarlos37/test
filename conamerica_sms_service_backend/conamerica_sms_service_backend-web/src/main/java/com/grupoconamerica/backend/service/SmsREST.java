@@ -107,6 +107,9 @@ public class SmsREST {
         if (smsFindRangeRequestDTO.getInitDate() == null) {
             throw new SmsException("smsFindRangeRequestDTO.getInitDate() is null");
         }
+        System.out.println("*///////////////////////////////////////////////////");
+        System.out.println("*///////////////////////////////////////////////////");
+        System.out.println(smsFindRangeRequestDTO.getInitDate().toString());
         if (smsFindRangeRequestDTO.getEndDate() == null) {
             throw new SmsException("smsFindRangeRequestDTO.getFinalDate() is null");
         }
