@@ -8,7 +8,7 @@ package com.grupoconamerica.backend.dto;
 import com.grupoconamerica.backend.enums.SmsMessageProcessedStatus;
 import com.grupoconamerica.backend.enums.SmsMessageSendType;
 import com.grupoconamerica.backend.enums.SmsMessageType;
-import com.grupoconamerica.backend.util.DateAdapter;
+import com.grupoconamerica.backend.util.DateAdapterWithMilliseconds;
 import java.io.Serializable;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -39,11 +39,11 @@ public class SmsMessageDTO implements Serializable {
     protected String gatewayId;
 
     @XmlElement(name = "createdAt", required = true)
-    @XmlJavaTypeAdapter(DateAdapter.class)
+    @XmlJavaTypeAdapter(DateAdapterWithMilliseconds.class)
     protected Date createdAt;
 
     @XmlElement(name = "processedAt", required = true)
-    @XmlJavaTypeAdapter(DateAdapter.class)
+    @XmlJavaTypeAdapter(DateAdapterWithMilliseconds.class)
     protected Date processedAt;
 
     protected SmsMessageProcessedStatus smsMessageProcessedStatus;
