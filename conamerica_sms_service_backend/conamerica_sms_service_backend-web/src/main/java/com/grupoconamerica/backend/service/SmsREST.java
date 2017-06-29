@@ -111,7 +111,7 @@ public class SmsREST {
         System.out.println("*///////////////////////////////////////////////////");
         System.out.println("*///////////////////////////////////////////////////");
         SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        System.out.println(dt.format(smsFindRangeRequestDTO.getInitDate().toString()));
+        System.out.println((dt.format(smsFindRangeRequestDTO.getInitDate())).toString());
         
         if (smsFindRangeRequestDTO.getEndDate() == null) {
             throw new SmsException("smsFindRangeRequestDTO.getFinalDate() is null");
