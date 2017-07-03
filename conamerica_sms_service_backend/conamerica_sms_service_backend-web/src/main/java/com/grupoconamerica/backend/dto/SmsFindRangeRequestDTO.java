@@ -7,7 +7,6 @@ package com.grupoconamerica.backend.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.grupoconamerica.backend.enums.SmsMessageType;
-import com.grupoconamerica.backend.util.DateAdapter;
 import com.grupoconamerica.backend.util.DateAdapterWithMilliseconds;
 import java.io.Serializable;
 import java.util.Date;
