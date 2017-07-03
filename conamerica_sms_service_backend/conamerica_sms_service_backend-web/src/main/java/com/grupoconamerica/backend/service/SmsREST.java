@@ -64,16 +64,16 @@ public class SmsREST {
         if (smsSendMessageRequestDTO.getSmsMessageSendType() == null) {
             smsSendMessageRequestDTO.setSmsMessageSendType(SmsMessageSendType.SYNC);
         }
-        if (smsSendMessageRequestDTO.getSecureBatch() == null){
+        if (smsSendMessageRequestDTO.getSecureBatch() == null) {
             smsSendMessageRequestDTO.setSecureBatch(Boolean.TRUE);
         }
         SmsMessageSendType smsSendType = smsSendMessageRequestDTO.getSmsMessageSendType();
         List<SmsMessageDTO> smsDTOs = new ArrayList<>();
         for (String phoneNumber : smsSendMessageRequestDTO.getPhoneNumbers()) {
-            if(phoneNumber == null){
+            if (phoneNumber == null) {
                 continue;
             }
-            if(phoneNumber.equals("")){
+            if (phoneNumber.equals("")) {
                 continue;
             }
             SmsMessageDTO smsDTO = new SmsMessageDTO();
@@ -93,12 +93,18 @@ public class SmsREST {
         }
         return new SmsSendMessageResponseDTO(ticket);
     }
-    
+
     @POST
     @Path("/findRange")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public SmsFindRangeResponseDTO findRange(SmsFindRangeRequestDTO smsFindRangeRequestDTO) throws SmsException {
+        System.out.print("=============================================================================================================");
+        System.out.print("=============================================================================================================");
+        System.out.print("=============================================================================================================");
+        System.out.print("=============================================================================================================");
+        System.out.print(smsFindRangeRequestDTO.getInitDate().toString());
+
         if (smsFindRangeRequestDTO == null) {
             throw new SmsException("smsFindRangeRequestDTO is null");
         }
@@ -111,9 +117,9 @@ public class SmsREST {
         if (smsFindRangeRequestDTO.getEndDate() == null) {
             throw new SmsException("smsFindRangeRequestDTO.getFinalDate() is null");
         }
-        if(smsFindRangeRequestDTO.getSmsMessageType().equals(SmsMessageType.INBOUND)){
+        if (smsFindRangeRequestDTO.getSmsMessageType().equals(SmsMessageType.INBOUND)) {
             List<SmsMessageDTO> smsDTOs = new ArrayList<>();
-            if(smsFindRangeRequestDTO.getQuantity() == null){
+            if (smsFindRangeRequestDTO.getQuantity() == null) {
                 smsDTOs.addAll(new SmsMessageDelegate().findAll(smsFindRangeRequestDTO.getSmsMessageType(), smsFindRangeRequestDTO.getInitDate(), smsFindRangeRequestDTO.getEndDate()));
             } else {
                 int[] range = new int[2];
@@ -122,9 +128,9 @@ public class SmsREST {
                 smsDTOs.addAll(new SmsMessageDelegate().findAllBySmsMessageType(smsFindRangeRequestDTO.getSmsMessageType(), smsFindRangeRequestDTO.getInitDate(), smsFindRangeRequestDTO.getEndDate(), range));
             }
             return new SmsFindRangeResponseDTO(smsDTOs, smsFindRangeRequestDTO.getSmsMessageType());
-        } else if(smsFindRangeRequestDTO.getSmsMessageType().equals(SmsMessageType.OUTBOUND) ) {
+        } else if (smsFindRangeRequestDTO.getSmsMessageType().equals(SmsMessageType.OUTBOUND)) {
             List<SmsMessageDTO> smsDTOs = new ArrayList<>();
-            if(smsFindRangeRequestDTO.getQuantity() == null){
+            if (smsFindRangeRequestDTO.getQuantity() == null) {
                 smsDTOs.addAll(new SmsMessageDelegate().findAll(smsFindRangeRequestDTO.getSmsMessageType(), smsFindRangeRequestDTO.getInitDate(), smsFindRangeRequestDTO.getEndDate()));
             } else {
                 int[] range = new int[2];
@@ -136,7 +142,7 @@ public class SmsREST {
         }
         throw new SmsException("Not handled case");
     }
-        
+
     @POST
     @Path("/getProcessStatus")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -154,5 +160,5 @@ public class SmsREST {
         Integer[] processStatus = new SmsMessageDelegate().getProcessStatus(smsProcessStatusRequestDTO.getTicket());
         return new SmsProcessStatusResponseDTO(processStatus[0], processStatus[1]);
     }
-        
+
 }
