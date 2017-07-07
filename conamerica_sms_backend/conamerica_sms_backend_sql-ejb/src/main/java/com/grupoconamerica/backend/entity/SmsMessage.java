@@ -21,7 +21,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
-import javax.persistence.Version;
 
 /**
  *
