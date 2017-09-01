@@ -5,13 +5,13 @@
  */
 package com.grupoconamerica.backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.grupoconamerica.backend.enums.SmsMessageSendType;
 import com.grupoconamerica.backend.util.DateAdapterWithMilliseconds;
 import java.io.Serializable;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -22,19 +22,17 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SmsSendMessageRequestDTO implements Serializable {
-    
+
     private String[] phoneNumbers;
-    
+
     private String message;
-    
+
     private String subject;
-    
+
     private SmsMessageSendType smsMessageSendType;
-    
-    @XmlElement(name = "sendAt", required = true) 
-    @XmlJavaTypeAdapter(DateAdapterWithMilliseconds.class)
+
     private Date sendAt;
-    
+
     private Boolean secureBatch;
 
     public String[] getPhoneNumbers() {
@@ -69,6 +67,8 @@ public class SmsSendMessageRequestDTO implements Serializable {
         this.smsMessageSendType = smsMessageSendType;
     }
 
+    @JsonProperty("sendAt")
+    @XmlJavaTypeAdapter(DateAdapterWithMilliseconds.class)
     public Date getSendAt() {
         return sendAt;
     }
@@ -84,7 +84,7 @@ public class SmsSendMessageRequestDTO implements Serializable {
     public void setSecureBatch(Boolean secureBatch) {
         this.secureBatch = secureBatch;
     }
-    
+
     public SmsSendMessageRequestDTO() {
     }
 
@@ -96,5 +96,5 @@ public class SmsSendMessageRequestDTO implements Serializable {
         this.sendAt = sendAt;
         this.secureBatch = secureBatch;
     }
-    
+
 }
