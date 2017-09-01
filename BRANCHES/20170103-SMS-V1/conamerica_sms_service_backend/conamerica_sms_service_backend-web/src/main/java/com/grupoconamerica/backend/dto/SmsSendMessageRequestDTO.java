@@ -6,7 +6,7 @@
 package com.grupoconamerica.backend.dto;
 
 import com.grupoconamerica.backend.enums.SmsMessageSendType;
-import com.grupoconamerica.backend.util.DateAdapter;
+import com.grupoconamerica.backend.util.DateAdapterWithMilliseconds;
 import java.io.Serializable;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -32,7 +32,7 @@ public class SmsSendMessageRequestDTO implements Serializable {
     private SmsMessageSendType smsMessageSendType;
     
     @XmlElement(name = "sendAt", required = true) 
-    @XmlJavaTypeAdapter(DateAdapter.class)
+    @XmlJavaTypeAdapter(DateAdapterWithMilliseconds.class)
     private Date sendAt;
     
     private Boolean secureBatch;
