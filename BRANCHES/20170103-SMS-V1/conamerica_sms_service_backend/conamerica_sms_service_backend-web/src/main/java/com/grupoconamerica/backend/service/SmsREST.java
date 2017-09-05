@@ -134,10 +134,6 @@ public class SmsREST {
                     smsMessageDTOs.add(smsMessageDTO);
                 }
             }
-            
-               System.out.print("========SIZE==================================================================================" + smsMessageDTOs.size());
-                  System.out.print("=================SIZE==================================================================================" + smsDTOs.size());
-        
                return new SmsFindRangeResponseDTO(smsMessageDTOs, smsFindRangeRequestDTO.getSmsMessageType());
         } else if (smsFindRangeRequestDTO.getSmsMessageType().equals(SmsMessageType.OUTBOUND)) {
             List<SmsMessageDTO> smsDTOs = new ArrayList<>();
