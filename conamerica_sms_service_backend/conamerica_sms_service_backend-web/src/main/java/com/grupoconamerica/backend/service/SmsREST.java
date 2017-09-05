@@ -120,7 +120,6 @@ public class SmsREST {
         }
         if (smsFindRangeRequestDTO.getSmsMessageType().equals(SmsMessageType.INBOUND)) {
             Set<SmsMessageDTO> smsDTOs = new HashSet<>();
-            Set<SmsMessageDTO> smsCopieDTOs = new HashSet<>();
             if (smsFindRangeRequestDTO.getQuantity() == null) {
                 smsDTOs.addAll(new SmsMessageDelegate().findAll(smsFindRangeRequestDTO.getSmsMessageType(), smsFindRangeRequestDTO.getInitDate(), smsFindRangeRequestDTO.getEndDate()));
             } else {
@@ -129,9 +128,7 @@ public class SmsREST {
                 range[1] = smsFindRangeRequestDTO.getQuantity();
                 smsDTOs.addAll(new SmsMessageDelegate().findAllBySmsMessageType(smsFindRangeRequestDTO.getSmsMessageType(), smsFindRangeRequestDTO.getInitDate(), smsFindRangeRequestDTO.getEndDate(), range));
             }
-            smsCopieDTOs = smsDTOs;
-            smsCopieDTOs.retainAll(smsDTOs);
-            List<SmsMessageDTO> smsMessageDTOs = new ArrayList(smsCopieDTOs);
+            List<SmsMessageDTO> smsMessageDTOs = new ArrayList(smsDTOs);
             return new SmsFindRangeResponseDTO(smsMessageDTOs, smsFindRangeRequestDTO.getSmsMessageType());
         } else if (smsFindRangeRequestDTO.getSmsMessageType().equals(SmsMessageType.OUTBOUND)) {
             List<SmsMessageDTO> smsDTOs = new ArrayList<>();
