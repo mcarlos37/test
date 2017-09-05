@@ -173,6 +173,13 @@ public class SmsMessageDTO implements Serializable {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -181,13 +188,12 @@ public class SmsMessageDTO implements Serializable {
             return false;
         }
         final SmsMessageDTO other = (SmsMessageDTO) obj;
-        System.out.print("=============================================================================");
-        System.out.print("=============================================================================");
-        System.out.print("=============================================================================");
+         System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
+        System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
         System.out.print("NUMBER:" + this.phoneNumber + "  OTHER:   " + other.phoneNumber);
         System.out.print("MESSAGE:" + this.message + "  OTHER:   " + other.message);
-
         return Objects.equals(this.phoneNumber, other.phoneNumber) && Objects.equals(this.message, other.message);
     }
 
