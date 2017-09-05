@@ -6,20 +6,21 @@
 package com.grupoconamerica.backend.service;
 
 import com.grupoconamerica.backend.delegate.SmsMessageDelegate;
-import com.grupoconamerica.backend.dto.SmsMessageDTO;
 import com.grupoconamerica.backend.dto.SmsFindRangeRequestDTO;
 import com.grupoconamerica.backend.dto.SmsFindRangeResponseDTO;
+import com.grupoconamerica.backend.dto.SmsMessageDTO;
 import com.grupoconamerica.backend.dto.SmsProcessStatusRequestDTO;
 import com.grupoconamerica.backend.dto.SmsProcessStatusResponseDTO;
-import com.grupoconamerica.backend.dto.SmsSendMessageResponseDTO;
 import com.grupoconamerica.backend.dto.SmsSendMessageRequestDTO;
+import com.grupoconamerica.backend.dto.SmsSendMessageResponseDTO;
 import com.grupoconamerica.backend.enums.SmsMessageSendType;
 import com.grupoconamerica.backend.enums.SmsMessageType;
 import com.grupoconamerica.backend.exception.SmsException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -118,7 +119,7 @@ public class SmsREST {
             throw new SmsException("smsFindRangeRequestDTO.getFinalDate() is null");
         }
         if (smsFindRangeRequestDTO.getSmsMessageType().equals(SmsMessageType.INBOUND)) {
-            List<SmsMessageDTO> smsDTOs = new ArrayList<>();
+            Set<SmsMessageDTO> smsDTOs = new HashSet<>();
             if (smsFindRangeRequestDTO.getQuantity() == null) {
                 smsDTOs.addAll(new SmsMessageDelegate().findAll(smsFindRangeRequestDTO.getSmsMessageType(), smsFindRangeRequestDTO.getInitDate(), smsFindRangeRequestDTO.getEndDate()));
             } else {
@@ -127,7 +128,7 @@ public class SmsREST {
                 range[1] = smsFindRangeRequestDTO.getQuantity();
                 smsDTOs.addAll(new SmsMessageDelegate().findAllBySmsMessageType(smsFindRangeRequestDTO.getSmsMessageType(), smsFindRangeRequestDTO.getInitDate(), smsFindRangeRequestDTO.getEndDate(), range));
             }
-            return new SmsFindRangeResponseDTO(smsDTOs, smsFindRangeRequestDTO.getSmsMessageType());
+            return new SmsFindRangeResponseDTO((List)smsDTOs, smsFindRangeRequestDTO.getSmsMessageType());
         } else if (smsFindRangeRequestDTO.getSmsMessageType().equals(SmsMessageType.OUTBOUND)) {
             List<SmsMessageDTO> smsDTOs = new ArrayList<>();
             if (smsFindRangeRequestDTO.getQuantity() == null) {
