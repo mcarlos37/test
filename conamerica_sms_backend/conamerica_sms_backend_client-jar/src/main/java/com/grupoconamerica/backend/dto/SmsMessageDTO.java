@@ -11,6 +11,7 @@ import com.grupoconamerica.backend.enums.SmsMessageType;
 import com.grupoconamerica.backend.util.DateAdapterWithMilliseconds;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -169,6 +170,25 @@ public class SmsMessageDTO implements Serializable {
                 + "smsSendType=" + this.smsMessageSendType
                 + "ticket=" + this.ticket
                 + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SmsMessageDTO other = (SmsMessageDTO) obj;
+        return Objects.equals(this.phoneNumber, other.phoneNumber) && Objects.equals(this.message, other.message);
     }
 
 }
