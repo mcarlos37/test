@@ -128,7 +128,8 @@ public class SmsREST {
                 range[1] = smsFindRangeRequestDTO.getQuantity();
                 smsDTOs.addAll(new SmsMessageDelegate().findAllBySmsMessageType(smsFindRangeRequestDTO.getSmsMessageType(), smsFindRangeRequestDTO.getInitDate(), smsFindRangeRequestDTO.getEndDate(), range));
             }
-            return new SmsFindRangeResponseDTO((List)smsDTOs, smsFindRangeRequestDTO.getSmsMessageType());
+            List<SmsMessageDTO> smsMessageDTOs = new ArrayList(smsDTOs);
+            return new SmsFindRangeResponseDTO(smsMessageDTOs, smsFindRangeRequestDTO.getSmsMessageType());
         } else if (smsFindRangeRequestDTO.getSmsMessageType().equals(SmsMessageType.OUTBOUND)) {
             List<SmsMessageDTO> smsDTOs = new ArrayList<>();
             if (smsFindRangeRequestDTO.getQuantity() == null) {
