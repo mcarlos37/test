@@ -188,12 +188,6 @@ public class SmsMessageDTO implements Serializable {
             return false;
         }
         final SmsMessageDTO other = (SmsMessageDTO) obj;
-        System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa");
-        System.out.print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-
-        System.out.print("NUMBER:" + this.phoneNumber + "  OTHER:   " + other.phoneNumber);
-        System.out.print("MESSAGE:" + this.message + "  OTHER:   " + other.message);
         return Objects.equals(this.phoneNumber, other.phoneNumber) && Objects.equals(this.message, other.message);
     }
 
