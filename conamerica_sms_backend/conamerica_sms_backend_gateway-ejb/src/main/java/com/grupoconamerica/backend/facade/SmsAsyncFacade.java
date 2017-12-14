@@ -62,6 +62,8 @@ public class SmsAsyncFacade implements SmsAsyncFacadeLocal {
                 errorMessage = "PhoneNumber is not a cellphoneNumber";
                 throw new SmsException(errorMessage);
             }
+            System.out.println("formatPhoneNumber : " + formatPhoneNumber(smsDTO.getPhoneNumber()));
+            System.out.println("smsDTO.getMessage() : " + smsDTO.getMessage());
             outboundMessage = new OutboundMessage(formatPhoneNumber(smsDTO.getPhoneNumber()), smsDTO.getMessage());
             for (AGateway aGateway : (List<AGateway>) Service.getInstance().getGateways()) {
                 System.out.println("====================================================");
@@ -77,6 +79,10 @@ public class SmsAsyncFacade implements SmsAsyncFacadeLocal {
                 errorMessage = ex.getMessage();
             }
         } finally {
+                  System.out.println("outboundMessage : " + outboundMessage);
+                   System.out.println("outboundMessage : " + outboundMessage);
+                    System.out.println("outboundMessage : " + outboundMessage);
+                     System.out.println("outboundMessage : " + outboundMessage);
             if (outboundMessage != null) {
                 smsDTO.setGatewayId(outboundMessage.getGatewayId());
             }
