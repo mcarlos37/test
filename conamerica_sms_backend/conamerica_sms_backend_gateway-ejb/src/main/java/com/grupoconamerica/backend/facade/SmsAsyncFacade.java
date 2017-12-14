@@ -63,13 +63,11 @@ public class SmsAsyncFacade implements SmsAsyncFacadeLocal {
                 throw new SmsException(errorMessage);
             }
             System.out.println("formatPhoneNumber : " + formatPhoneNumber(smsDTO.getPhoneNumber()));
-            System.out.println("smsDTO.getMessage() : " + smsDTO.getMessage());
+          
             outboundMessage = new OutboundMessage(formatPhoneNumber(smsDTO.getPhoneNumber()), smsDTO.getMessage());
-            for (AGateway aGateway : (List<AGateway>) Service.getInstance().getGateways()) {
-                System.out.println("====================================================");
-                System.out.println("PUERTO : " + aGateway.getGatewayId());
-            }
-            Service.getInstance().sendMessage(outboundMessage, ((List<AGateway>) Service.getInstance().getGateways()).get(new Random().nextInt(((List<AGateway>) Service.getInstance().getGateways()).size())).getGatewayId());
+           String random = ((List<AGateway>) Service.getInstance().getGateways()).get(new Random().nextInt(((List<AGateway>) Service.getInstance().getGateways()).size())).getGatewayId();
+            Service.getInstance().sendMessage(outboundMessage, random);
+              System.out.println("RANDOM : " + random);
         } catch (SmsException | TimeoutException | GatewayException | IOException | InterruptedException ex) {
             Logger.getLogger(SmsAsyncFacade.class.getName()).log(Level.SEVERE, null, ex);
             success = false;
@@ -80,9 +78,6 @@ public class SmsAsyncFacade implements SmsAsyncFacadeLocal {
             }
         } finally {
                   System.out.println("outboundMessage : " + outboundMessage);
-                   System.out.println("outboundMessage : " + outboundMessage);
-                    System.out.println("outboundMessage : " + outboundMessage);
-                     System.out.println("outboundMessage : " + outboundMessage);
             if (outboundMessage != null) {
                 smsDTO.setGatewayId(outboundMessage.getGatewayId());
             }
