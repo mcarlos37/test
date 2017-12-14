@@ -63,11 +63,13 @@ public class SmsAsyncFacade implements SmsAsyncFacadeLocal {
                 throw new SmsException(errorMessage);
             }
             System.out.println("formatPhoneNumber : " + formatPhoneNumber(smsDTO.getPhoneNumber()));
-          
+            System.out.println("smsDTO.getMessage() : " + smsDTO.getMessage());
             outboundMessage = new OutboundMessage(formatPhoneNumber(smsDTO.getPhoneNumber()), smsDTO.getMessage());
-           String random = ((List<AGateway>) Service.getInstance().getGateways()).get(new Random().nextInt(((List<AGateway>) Service.getInstance().getGateways()).size())).getGatewayId();
-            Service.getInstance().sendMessage(outboundMessage, random);
-              System.out.println("RANDOM : " + random);
+            for (AGateway aGateway : (List<AGateway>) Service.getInstance().getGateways()) {
+                System.out.println("====================================================");
+                System.out.println("PUERTO : " + aGateway.getGatewayId());
+            }
+            Service.getInstance().sendMessage(outboundMessage, ((List<AGateway>) Service.getInstance().getGateways()).get(new Random().nextInt(((List<AGateway>) Service.getInstance().getGateways()).size())).getGatewayId());
         } catch (SmsException | TimeoutException | GatewayException | IOException | InterruptedException ex) {
             Logger.getLogger(SmsAsyncFacade.class.getName()).log(Level.SEVERE, null, ex);
             success = false;
@@ -77,8 +79,8 @@ public class SmsAsyncFacade implements SmsAsyncFacadeLocal {
                 errorMessage = ex.getMessage();
             }
         } finally {
-                  System.out.println("outboundMessage : " + outboundMessage);
             if (outboundMessage != null) {
+                System.out.println("outboundMessage.getGatewayId() : " + outboundMessage.getGatewayId());
                 smsDTO.setGatewayId(outboundMessage.getGatewayId());
             }
             smsDTO.setSmsMessageType(SmsMessageType.OUTBOUND);
