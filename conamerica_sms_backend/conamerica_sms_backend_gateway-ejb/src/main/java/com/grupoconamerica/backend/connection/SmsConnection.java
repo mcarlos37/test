@@ -35,6 +35,7 @@ public class SmsConnection implements SmsConnectionLocal {
                 continue;
             }
             try {
+                Logger.getLogger(SmsConnection.class.getName()).log(Level.SEVERE, "id: "+gatewayMode[0]+"comPort: "+gatewayMode[1]+"baudRate: "+ gatewayMode[2]+"manufacter: "+gatewayMode[3]+"model: "+gatewayMode[4]);
                 SerialModemGateway serialModemGateway = new SerialModemGateway(gatewayMode[0], gatewayMode[1], Integer.parseInt(gatewayMode[2]), gatewayMode[3], gatewayMode[4]);
                 serialModemGateway.getATHandler().setStorageLocations("MESM");
                 serialModemGateway.setInbound(Boolean.TRUE);
